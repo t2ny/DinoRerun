@@ -2,8 +2,9 @@ class Obstacle {
     constructor() {
         this.size = 50;
         this.x = width;
-        this.y = height - this.size;
+        this.y = height - this.size - 50;
         this.speed = 9;
+        this.color = color(83, 83, 83);
     }
 
     move() {
@@ -11,6 +12,8 @@ class Obstacle {
     }
 
     show() {
+        noStroke();
+        fill(this.color);
         square(this.x, this.y, this.size);
     }
 }
