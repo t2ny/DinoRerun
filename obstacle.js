@@ -4,7 +4,7 @@ class Obstacle {
         this.x = width;
         this.y = height - this.size - 50;
         this.speed = 9;
-        this.color = color(83, 83, 83);
+        this.color = color(100, 100, 100);
     }
 
     move() {

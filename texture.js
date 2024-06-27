@@ -5,7 +5,7 @@ class Texture {
         this.x = width;
         this.y = y;
         this.speed = 9;
-        this.color = color(83, 83, 83);
+        this.color = color(100, 100, 100);
     }
 
     move() {

@@ -5,7 +5,7 @@ class Player {
         this.y = height - this.size - 50;
         this.vy = 0;
         this.gravity = 1;
-        this.color = color(83, 83, 83);
+        this.color = color(100, 100, 100);
     }
 
     jump() {
