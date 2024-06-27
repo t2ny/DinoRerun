@@ -1,5 +1,6 @@
 let player;
 let obstacles = [];
+let textures = [];
 let groundLine;
 let prevFrameCount = 0;
 let spawnDelay = 60;
@@ -51,4 +52,23 @@ function draw() {
         pop();
         o.move();
     }
+
+    // Remove textures that have reached the start of the screen to save memory
+    if (textures.length > 0 && textures[0].x <= 0) {
+        textures.shift();
+    }
+
+    if (random(1) < 0.1) {
+        textures.push(new Texture(random(height - 60, height - 40), random(2, 11)));
+    }
+
+    for (let t of textures) {
+        push();
+        t.show();
+        pop();
+        t.move();
+    }
+
+    text(frameRate(), 50, 50);
+
 }
