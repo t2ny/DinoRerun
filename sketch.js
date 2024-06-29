@@ -9,9 +9,11 @@ let cloudImg;
 let gameOver = false;
 let hiScore = 0;
 let score = 0;
+let font;
 
 function preload() {
     cloudImg = loadImage('assets/pixel-cloud-alt.png');
+    font = loadFont('assets/PressStart2P-Regular.ttf');
 }
 
 function setup() {
@@ -138,12 +140,17 @@ function restartGame() {
 }
 
 function showScore() {
+    let output = '';
+
     push();
-    textSize(15);
+    textFont(font);
+    fill(color(83, 83, 83));
+
     if (hiScore > 0) {
-        text(`HI  ${hiScore.toString().padStart(5, '0')}  ${score.toString().padStart(5, '0')}`, width - 150, 75);
+        output = `HI ${hiScore.toString().padStart(5, '0')} ${score.toString().padStart(5, '0')}`;
     } else {
-        text(score.toString().padStart(5, '0'), width - 150, 75);
+        output = score.toString().padStart(5, '0');
     }
+    text(output, width - 200, 75)
     pop();
 }
