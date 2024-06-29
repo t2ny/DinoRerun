@@ -22,19 +22,30 @@ function preload() {
     primary = color(83, 83, 83);
 }
 
+p5.disableFriendlyErrors = true;
+
 function setup() {
     createCanvas(800, 400);
     player = new Player();
     groundLine = new Line(0, height - player.size - 10, width, height - player.size - 10);
+    noLoop();
 }
 
 function keyPressed() {
 
+    // Restart game
     if (key == ' ' && gameOver) {
         restartGame();
         return;
     }
 
+    // Start game
+    if (key == ' ' && !isLooping()) {
+        loop();
+        return;
+    }
+
+    // Jump
     if (key == ' ' || key == 'w') {
         player.jump();
     }
@@ -64,6 +75,10 @@ function draw() {
 
     if (gameOver) {
         showGameOverText();
+    }
+
+    if (!gameOver && !isLooping()) {
+        showGameStartText();
     }
 
 }
@@ -172,5 +187,15 @@ function showGameOverText() {
     fill(primary);
     let tWidth = textWidth('GAME OVER') / 2;
     text('GAME OVER', width / 2 - tWidth, height / 2);
+    pop();
+}
+
+function showGameStartText() {
+    push();
+    textFont(font);
+    textSize(20);
+    fill(primary);
+    let tWidth = textWidth('START GAME') / 2;
+    text('START GAME', width / 2 - tWidth, height / 2);
     pop();
 }
