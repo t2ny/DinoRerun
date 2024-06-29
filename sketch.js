@@ -10,10 +10,12 @@ let gameOver = false;
 let hiScore = 0;
 let score = 0;
 let font;
+let primary;
 
 function preload() {
     cloudImg = loadImage('assets/pixel-cloud-alt.png');
     font = loadFont('assets/PressStart2P-Regular.ttf');
+    primary = color(83, 83, 83);
 }
 
 function setup() {
@@ -55,6 +57,10 @@ function draw() {
 
     text(frameRate(), 50, 50);
     showScore();
+
+    if (gameOver) {
+        showGameOverText();
+    }
 
 }
 
@@ -144,7 +150,7 @@ function showScore() {
 
     push();
     textFont(font);
-    fill(color(83, 83, 83));
+    fill(primary);
 
     if (hiScore > 0) {
         output = `HI ${hiScore.toString().padStart(5, '0')} ${score.toString().padStart(5, '0')}`;
@@ -152,5 +158,15 @@ function showScore() {
         output = score.toString().padStart(5, '0');
     }
     text(output, width - 200, 75)
+    pop();
+}
+
+function showGameOverText() {
+    push();
+    textFont(font);
+    textSize(20);
+    fill(primary);
+    let tWidth = textWidth('GAME OVER') / 2;
+    text('GAME OVER', width / 2 - tWidth, height / 2);
     pop();
 }
