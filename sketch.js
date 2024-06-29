@@ -7,6 +7,8 @@ let prevFrameCount = 0;
 let spawnDelay = 60;
 let cloudImg;
 let gameOver = false;
+let hiScore = 0;
+let score = 0;
 
 function preload() {
     cloudImg = loadImage('assets/pixel-cloud-alt.png');
@@ -47,7 +49,10 @@ function draw() {
 
     spawnGroundTexture();
 
+    score = round(frameCount / 60);
+
     text(frameRate(), 50, 50);
+    showScore();
 
 }
 
@@ -84,7 +89,7 @@ function spawnObstacles() {
     }
 
     // Remove obstacles that have reached the start of the screen to save memory
-    if (obstacles.length > 0 && obstacles[0].x <= 0) {
+    if (obstacles.length > 0 && obstacles[0].x <= -50) {
         obstacles.shift();
     }
 
@@ -126,5 +131,19 @@ function restartGame() {
     textures = [];
     clouds = [];
     gameOver = false;
+    prevFrameCount = 0;
+    hiScore = score > hiScore ? score : hiScore;
+    frameCount = 0;
     loop();
+}
+
+function showScore() {
+    push();
+    textSize(15);
+    if (hiScore > 0) {
+        text(`HI  ${hiScore.toString().padStart(5, '0')}  ${score.toString().padStart(5, '0')}`, width - 150, 75);
+    } else {
+        text(score.toString().padStart(5, '0'), width - 150, 75);
+    }
+    pop();
 }
