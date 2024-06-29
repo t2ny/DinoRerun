@@ -6,6 +6,7 @@ let groundLine;
 let prevFrameCount = 0;
 let spawnDelay = 60;
 let cloudImg;
+let gameOver = false;
 
 function preload() {
     cloudImg = loadImage('assets/pixel-cloud-alt.png');
@@ -18,6 +19,12 @@ function setup() {
 }
 
 function keyPressed() {
+
+    if (key == ' ' && gameOver) {
+        restartGame();
+        return;
+    }
+
     if (key == ' ' || key == 'w') {
         player.jump();
     }
@@ -85,6 +92,7 @@ function spawnObstacles() {
 
         if (player.collide(o)) {
             print("Game Over");
+            gameOver = true;
             noLoop();
         }
 
@@ -111,4 +119,12 @@ function spawnGroundTexture() {
         pop();
         t.move();
     }
+}
+
+function restartGame() {
+    obstacles = [];
+    textures = [];
+    clouds = [];
+    gameOver = false;
+    loop();
 }
