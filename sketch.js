@@ -59,7 +59,7 @@ function draw() {
 
     score = round(frameCount / 60);
 
-    text(frameRate(), 50, 50);
+    text(round(frameRate()), 50, 50);
     showScore();
 
     if (gameOver) {
@@ -95,9 +95,9 @@ function spawnClouds() {
 function spawnObstacles() {
     // Spawning algorithmn
     if (frameCount - prevFrameCount === spawnDelay) {
-        obstacles.push(new Obstacle(cactusImg));
+        obstacles.push(new Obstacle(Math.random() < 0.5 ? cactusImg : cactusImg2));
         prevFrameCount = frameCount;
-        spawnDelay = Math.floor(random(25, 101));
+        spawnDelay = Math.floor(Math.random() * (101 - 25) + 25);
     }
 
     // Remove obstacles that have reached the start of the screen to save memory
@@ -126,8 +126,8 @@ function spawnGroundTexture() {
         textures.shift();
     }
 
-    if (random(1) < 0.1) {
-        textures.push(new Texture(random(height - 60, height - 40), random(1, 11)));
+    if (Math.random() < 0.1) {
+        textures.push(new Texture(random(height - 60, height - 40), Math.random() * (11 - 1) + 1));
     }
 
     for (let t of textures) {
