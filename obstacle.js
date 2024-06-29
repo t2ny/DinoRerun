@@ -1,10 +1,12 @@
 class Obstacle {
-    constructor() {
-        this.size = 50;
+    constructor(img) {
+        this.size = 40;
+        this.height = 60;
         this.x = width;
-        this.y = height - this.size - 50;
+        this.y = height - this.height - 50;
         this.speed = 9;
         this.color = color(100, 100, 100);
+        this.img = img
     }
 
     move() {
@@ -12,8 +14,6 @@ class Obstacle {
     }
 
     show() {
-        noStroke();
-        fill(this.color);
-        square(this.x, this.y, this.size);
+        image(this.img, this.x, this.y, this.size, this.height);
     }
 }

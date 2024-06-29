@@ -6,6 +6,8 @@ let groundLine;
 let prevFrameCount = 0;
 let spawnDelay = 60;
 let cloudImg;
+let cactusImg;
+let cactusImg2;
 let gameOver = false;
 let hiScore = 0;
 let score = 0;
@@ -14,6 +16,8 @@ let primary;
 
 function preload() {
     cloudImg = loadImage('assets/pixel-cloud-alt.png');
+    cactusImg = loadImage('assets/cactus.png');
+    cactusImg2 = loadImage('assets/cactus2.png');
     font = loadFont('assets/PressStart2P-Regular.ttf');
     primary = color(83, 83, 83);
 }
@@ -91,7 +95,7 @@ function spawnClouds() {
 function spawnObstacles() {
     // Spawning algorithmn
     if (frameCount - prevFrameCount === spawnDelay) {
-        obstacles.push(new Obstacle());
+        obstacles.push(new Obstacle(cactusImg));
         prevFrameCount = frameCount;
         spawnDelay = Math.floor(random(25, 101));
     }
