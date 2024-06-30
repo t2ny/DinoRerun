@@ -39,9 +39,9 @@ class Player {
     }
 
     collide(obstacle) {
-        if ((obstacle.x <= this.x + this.size) &&
+        if ((obstacle.x <= this.x + this.size - 10) &&
             (obstacle.y <= this.y + this.size - 10) &&
-            (obstacle.x + obstacle.size >= this.x)) {
+            (obstacle.x + obstacle.size >= this.x + 10)) {
             return true;
         }
 
