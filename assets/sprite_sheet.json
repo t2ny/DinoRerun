@@ -1,0 +1,23 @@
+{
+  "sprites": [
+    {
+      "fileName": "pixil-layer-0.png",
+      "width": 60,
+      "height": 60,
+      "x": 0,
+      "y": 0
+    },
+    {
+      "fileName": "pixil-layer-1.png",
+      "width": 60,
+      "height": 60,
+      "x": 60,
+      "y": 0
+    }
+  ],
+  "packMode": "horizontal",
+  "padding": 0,
+  "backgroundColor": "rgba(0, 0, 0, 0)",
+  "spriteSheetWidth": 120,
+  "spriteSheetHeight": 60
+}

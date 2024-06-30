@@ -1,16 +1,19 @@
 class Player {
-    constructor() {
-        this.size = 50;
+    constructor(animation, animateSpeed) {
+        this.size = 60;
         this.x = 50;
         this.y = height - this.size - 50;
         this.vy = 0;
         this.gravity = 1;
         this.color = color(100, 100, 100);
+        this.animation = animation;
+        this.animateSpeed = animateSpeed;
+        this.index = 0;
     }
 
     jump() {
         if (this.y === height - this.size - 50) {
-            this.vy = -15;
+            this.vy = -17;
         }
     }
 
@@ -21,11 +24,11 @@ class Player {
     }
 
     show() {
-        // rect(this.x, this.y, this.size, this.size);
-        // noStroke();
-        noStroke();
-        fill(this.color);
-        square(this.x, this.y, this.size);
+        image(this.animation[Math.floor(this.index % this.animation.length)], this.x, this.y, this.size, this.size);
+    }
+
+    animate() {
+        this.index += this.animateSpeed;
     }
 
     collide(obstacle) {

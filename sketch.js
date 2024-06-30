@@ -2,6 +2,7 @@ let player;
 let obstacles = [];
 let textures = [];
 let clouds = [];
+let animations = [];
 let groundLine;
 let prevFrameCount = 0;
 let spawnDelay = 60;
@@ -13,21 +14,31 @@ let hiScore = 0;
 let score = 0;
 let font;
 let primary;
+let spriteSheet;
+let spriteDate;
 
 function preload() {
     cloudImg = loadImage('assets/pixel-cloud-alt.png');
     cactusImg = loadImage('assets/cactus.png');
     cactusImg2 = loadImage('assets/cactus2.png');
+    spriteSheet = loadImage('assets/sprite_sheet.png');
+    spriteData = loadJSON('assets/sprite_sheet.json');
     font = loadFont('assets/PressStart2P-Regular.ttf');
     primary = color(83, 83, 83);
 }
 
-p5.disableFriendlyErrors = true;
-
 function setup() {
     createCanvas(800, 400);
-    player = new Player();
+    player = new Player(animations, 0.2);
     groundLine = new Line(0, height - player.size - 10, width, height - player.size - 10);
+
+    let sprites = spriteData.sprites;
+    for (let i = 0; i < sprites.length; i++) {
+        let x = sprites[i].x;
+        let y = sprites[i].y;
+        let img = spriteSheet.get(x, y, 60, 60);
+        animations.push(img);
+    }
     noLoop();
 }
 
@@ -63,6 +74,7 @@ function draw() {
     player.show();
     pop();
     player.move();
+    player.animate();
 
     spawnGroundTexture();
 
