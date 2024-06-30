@@ -1,5 +1,5 @@
 class Player {
-    constructor(animation, animateSpeed) {
+    constructor(animation, animateSpeed, idleImg) {
         this.size = 60;
         this.x = 50;
         this.y = height - this.size - 50;
@@ -9,6 +9,7 @@ class Player {
         this.animation = animation;
         this.animateSpeed = animateSpeed;
         this.index = 0;
+        this.idleImg = idleImg;
     }
 
     jump() {
@@ -24,7 +25,13 @@ class Player {
     }
 
     show() {
-        image(this.animation[Math.floor(this.index % this.animation.length)], this.x, this.y, this.size, this.size);
+
+        if (this.y < height - this.size - 50 || !isLooping()) {
+            image(this.idleImg, this.x, this.y, this.size, this.size);
+        } else {
+            image(this.animation[Math.floor(this.index % this.animation.length)], this.x, this.y, this.size, this.size);
+        }
+
     }
 
     animate() {

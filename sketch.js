@@ -16,12 +16,16 @@ let font;
 let primary;
 let spriteSheet;
 let spriteDate;
+let dinoImg;
+let dinoDie;
 
 function preload() {
     cloudImg = loadImage('assets/pixel-cloud-alt.png');
     cactusImg = loadImage('assets/cactus.png');
     cactusImg2 = loadImage('assets/cactus2.png');
     spriteSheet = loadImage('assets/sprite_sheet.png');
+    dinoImg = loadImage('assets/dino.png');
+    dinoDie = loadImage('assets/dino-die.png');
     spriteData = loadJSON('assets/sprite_sheet.json');
     font = loadFont('assets/PressStart2P-Regular.ttf');
     primary = color(83, 83, 83);
@@ -29,7 +33,7 @@ function preload() {
 
 function setup() {
     createCanvas(800, 400);
-    player = new Player(animations, 0.2);
+    player = new Player(animations, 0.2, dinoImg);
     groundLine = new Line(0, height - player.size - 10, width, height - player.size - 10);
 
     let sprites = spriteData.sprites;
@@ -69,16 +73,16 @@ function draw() {
 
     spawnClouds();
 
+    spawnGroundTexture();
+
+    spawnObstacles();
+
     // All code after pop() will be undone
     push();
     player.show();
     pop();
     player.move();
     player.animate();
-
-    spawnGroundTexture();
-
-    spawnObstacles();
 
     score += 0.05;
 
@@ -137,6 +141,7 @@ function spawnObstacles() {
         if (player.collide(o)) {
             print("Game Over");
             gameOver = true;
+            player.idleImg = dinoDie;
             noLoop();
         }
 
@@ -172,6 +177,7 @@ function restartGame() {
     hiScore = score > hiScore ? round(score) : hiScore;
     score = 0;
     frameCount = 0;
+    player.idleImg = dinoImg;
     loop();
 }
 
