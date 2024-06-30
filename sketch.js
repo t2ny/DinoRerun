@@ -64,21 +64,21 @@ function draw() {
     pop();
     player.move();
 
-    spawnObstacles();
-
     spawnGroundTexture();
 
-    score = round(frameCount / 60);
+    spawnObstacles();
+
+    score += 0.05;
 
     text(round(frameRate()), 50, 50);
     showScore();
 
     if (gameOver) {
-        showGameOverText();
+        showText('GAME OVER');
     }
 
     if (!gameOver && !isLooping()) {
-        showGameStartText();
+        showText('START GAME');
     }
 
 }
@@ -155,11 +155,10 @@ function spawnGroundTexture() {
 
 function restartGame() {
     obstacles = [];
-    textures = [];
-    clouds = [];
     gameOver = false;
     prevFrameCount = 0;
-    hiScore = score > hiScore ? score : hiScore;
+    hiScore = score > hiScore ? round(score) : hiScore;
+    score = 0;
     frameCount = 0;
     loop();
 }
@@ -172,30 +171,20 @@ function showScore() {
     fill(primary);
 
     if (hiScore > 0) {
-        output = `HI ${hiScore.toString().padStart(5, '0')} ${score.toString().padStart(5, '0')}`;
+        output = `HI ${hiScore.toString().padStart(5, '0')} ${round(score).toString().padStart(5, '0')}`;
     } else {
-        output = score.toString().padStart(5, '0');
+        output = round(score).toString().padStart(5, '0');
     }
     text(output, width - 200, 75)
     pop();
 }
 
-function showGameOverText() {
+function showText(word) {
     push();
     textFont(font);
     textSize(20);
     fill(primary);
-    let tWidth = textWidth('GAME OVER') / 2;
-    text('GAME OVER', width / 2 - tWidth, height / 2);
-    pop();
-}
-
-function showGameStartText() {
-    push();
-    textFont(font);
-    textSize(20);
-    fill(primary);
-    let tWidth = textWidth('START GAME') / 2;
-    text('START GAME', width / 2 - tWidth, height / 2);
+    let tWidth = textWidth(word) / 2;
+    text(word, width / 2 - tWidth, height / 2);
     pop();
 }
