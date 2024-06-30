@@ -37,6 +37,9 @@ function setup() {
     player = new Player(animations, 0.2, dinoImg);
     groundLine = new Line(0, height - player.size - 10, width, height - player.size - 10);
 
+    // Make pixel dense screen the same
+    pixelDensity(1);
+
     let sprites = spriteData.sprites;
     for (let i = 0; i < sprites.length; i++) {
         let x = sprites[i].x;
@@ -79,18 +82,19 @@ function draw() {
 
     spawnGroundTexture();
 
-    spawnObstacles();
+    //spawnObstacles();
 
     // All code after pop() will be undone
     push();
     player.show();
-    pop();
     player.move();
     player.animate();
+    pop();
+
 
     score += 0.05;
 
-    text(round(frameRate()), 50, 50);
+    // text(round(frameRate()), 50, 50);
     showScore();
 
     if (gameOver) {
@@ -141,19 +145,18 @@ function spawnObstacles() {
     }
 
     for (let o of obstacles) {
-
-        if (player.collide(o)) {
-            print("Game Over");
-            gameOver = true;
-            player.idleImg = dinoDie;
-            keyPressDelay = millis();
-            noLoop();
-        }
-
         push();
         o.show();
-        pop();
         o.move();
+        pop();
+    }
+
+    if (obstacles.length > 0 && player.collide(obstacles[0])) {
+        print("Game Over");
+        gameOver = true;
+        player.idleImg = dinoDie;
+        keyPressDelay = millis();
+        noLoop();
     }
 }
 
