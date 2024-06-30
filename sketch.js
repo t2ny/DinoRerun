@@ -18,6 +18,7 @@ let spriteSheet;
 let spriteDate;
 let dinoImg;
 let dinoDie;
+let keyPressDelay = 0;
 
 function preload() {
     cloudImg = loadImage('assets/pixel-cloud-alt.png');
@@ -48,8 +49,11 @@ function setup() {
 
 function keyPressed() {
 
+    let currentTime = millis();
+
     // Restart game
     if (key == ' ' && gameOver) {
+        if (currentTime - keyPressDelay < 750) return;
         restartGame();
         return;
     }
@@ -142,6 +146,7 @@ function spawnObstacles() {
             print("Game Over");
             gameOver = true;
             player.idleImg = dinoDie;
+            keyPressDelay = millis();
             noLoop();
         }
 
