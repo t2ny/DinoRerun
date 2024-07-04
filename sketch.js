@@ -55,20 +55,20 @@ function keyPressed() {
     let currentTime = millis();
 
     // Restart game
-    if (key == ' ' && gameOver) {
+    if (key == ' ' || key == 'w' || key == 'ArrowUp' && gameOver) {
         if (currentTime - keyPressDelay < 750) return;
         restartGame();
         return;
     }
 
     // Start game
-    if (key == ' ' && !isLooping()) {
+    if (key == ' ' || key == 'w' || key == 'ArrowUp' && !isLooping()) {
         loop();
         return;
     }
 
     // Jump
-    if (key == ' ' || key == 'w') {
+    if (key == ' ' || key == 'w' || key == 'ArrowUp') {
         player.jump();
     }
 }
@@ -82,7 +82,7 @@ function draw() {
 
     spawnGroundTexture();
 
-    //spawnObstacles();
+    spawnObstacles();
 
     // All code after pop() will be undone
     push();
@@ -139,16 +139,17 @@ function spawnObstacles() {
         spawnDelay = Math.floor(Math.random() * (101 - 25) + 25);
     }
 
-    // Remove obstacles that have reached the start of the screen to save memory
-    if (obstacles.length > 0 && obstacles[0].x <= -50) {
-        obstacles.shift();
-    }
 
     for (let o of obstacles) {
         push();
-        o.show();
         o.move();
+        o.show();
         pop();
+    }
+
+    // Remove obstacles that have reached the start of the screen to save memory
+    if (obstacles.length > 0 && obstacles[0].x <= -50) {
+        obstacles.shift();
     }
 
     if (obstacles.length > 0 && player.collide(obstacles[0])) {
@@ -172,9 +173,9 @@ function spawnGroundTexture() {
 
     for (let t of textures) {
         push();
+        t.move();
         t.show();
         pop();
-        t.move();
     }
 }
 

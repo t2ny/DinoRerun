@@ -1,6 +1,6 @@
 class Obstacle {
     constructor(img) {
-        this.size = 40;
+        this.size = 30;
         this.height = 60;
         this.x = width;
         this.y = height - this.height - 50;
