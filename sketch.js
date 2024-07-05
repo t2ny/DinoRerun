@@ -55,14 +55,14 @@ function keyPressed() {
     let currentTime = millis();
 
     // Restart game
-    if (key == ' ' || key == 'w' || key == 'ArrowUp' && gameOver) {
+    if ((key == ' ' || key == 'w' || key == 'ArrowUp') && gameOver) {
         if (currentTime - keyPressDelay < 750) return;
         restartGame();
         return;
     }
 
     // Start game
-    if (key == ' ' || key == 'w' || key == 'ArrowUp' && !isLooping()) {
+    if ((key == ' ' || key == 'w' || key == 'ArrowUp') && !isLooping()) {
         loop();
         return;
     }
