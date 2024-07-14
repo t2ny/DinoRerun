@@ -35,7 +35,7 @@ function preload() {
 function setup() {
     createCanvas(800, 400);
     player = new Player(animations, 0.2, dinoImg);
-    groundLine = new Line(0, height - player.size - 10, width, height - player.size - 10);
+    groundLine = new Line(0, height - player.size - 1, width, height - player.size - 1);
 
     // Make pixel dense screen the same
     pixelDensity(1);
